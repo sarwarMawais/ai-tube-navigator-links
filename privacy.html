@@ -1,242 +1,319 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy - London Tube AI</title>
+  <title>Privacy Policy — London Tube AI</title>
+  <meta name="description" content="How London Tube AI handles your data. No accounts, no servers, no advertising, analytics off by default." />
+
+  <!--
+    ================================================================
+    v2 — corrected 1 August 2026
+    ================================================================
+    CHANGED FROM v1:
+      • OpenWeatherMap → Open-Meteo (v1 named the wrong provider)
+      • Age position changed to 13+ to match the in-app policy
+      • "Analytics off by default" upgraded from claim to verified
+        (manifest flags false + Consent Mode v2 all-denied)
+      • Added the Personalisation toggle, which was undisclosed
+      • Added Consent Mode v2 and cleartext-blocking to Security
+
+    ----------------------------------------------------------------
+    VERIFIED AGAINST SOURCE — 1 August 2026
+    ----------------------------------------------------------------
+    Weather provider .... Open-Meteo.
+                          AppModule.kt:105 baseUrl("https://api.open-meteo.com/v1/")
+                          network_security_config.xml:13 api.open-meteo.com
+
+    Coordinates ......... NOT rounded. HomeViewModel.fetchWeather()
+                          passes raw Doubles straight through. This
+                          file says "your coordinates" and makes no
+                          coarseness claim, so it is accurate.
+
+    Personalisation ..... On-device only, and ON BY DEFAULT.
+                          AppPreferences.kt:122  ?: true
+                          (analytics :120 and crash :121 are ?: false)
+
+    Consent Mode v2 ..... AnalyticsTracker.kt:82 AD_PERSONALIZATION
+                          defaults to DENIED.
+    ================================================================
+  -->
+
   <style>
+    :root {
+      --ink:        #16181D;
+      --ink-soft:   #4A5160;
+      --accent:     #33415C;
+      --bg:         #FFFFFF;
+      --surface:    #F4F5F7;
+      --rule:       #E2E5EA;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink:      #E8EAEE;
+        --ink-soft: #A3AAB8;
+        --accent:   #A9B8D8;
+        --bg:       #0E1014;
+        --surface:  #171A20;
+        --rule:     #262A32;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, sans-serif;
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--bg);
+      font-size: 1.0625rem;
     }
-    h1, h2, h3 {
-      color: #0A1628;
+
+    h1 { font-size: 2rem; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
+
+    h2 {
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      margin: 3rem 0 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
     }
-    a {
-      color: #003688;
+
+    h3 { font-size: 1.0625rem; margin: 1.75rem 0 0.5rem; }
+
+    a { color: var(--accent); text-underline-offset: 2px; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+    .meta { color: var(--ink-soft); font-size: 0.9375rem; margin: 0 0 2rem; }
+
+    .callout {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 1.125rem 1.25rem;
+      margin: 2rem 0;
+      border-radius: 0 4px 4px 0;
     }
-    .notice {
-      background: #f3f4f6;
-      border-left: 4px solid #003688;
-      padding: 16px;
-      margin: 20px 0;
+    .callout p:first-child { margin-top: 0; }
+    .callout p:last-child  { margin-bottom: 0; }
+
+    ul { padding-left: 1.25rem; }
+    li { margin-bottom: 0.375rem; }
+
+    table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.9375rem; }
+    th, td { text-align: left; padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    th {
+      font-weight: 600;
+      color: var(--ink-soft);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
+    .wrap { overflow-x: auto; }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font-size: 0.875rem;
+    }
+    footer p { margin: 0.375rem 0; }
   </style>
 </head>
 <body>
+
   <h1>Privacy Policy</h1>
-
-  <p>
-    This Privacy Policy applies to London Tube AI, also known as AI Tube Navigator.
+  <p class="meta">
+    London Tube AI (also published as AI Tube Navigator)<br />
+    Last updated: 1 August 2026
   </p>
 
-  <p>
-    Last updated: 6 June 2026
-  </p>
-
-  <div class="notice">
-    <strong>Summary:</strong>
-    London Tube AI uses your data only to provide app functionality, improve app reliability, process purchases, and understand app performance where permitted. We do not sell your personal data.
+  <div class="callout">
+    <p><strong>The short version.</strong> London Tube AI has no accounts and no sign-up. We operate no server that receives or stores your data. Your journeys, favourites and history stay on your phone.</p>
+    <p>Analytics and crash reporting are switched <strong>off by default</strong> — nothing is collected unless you turn it on. The app contains no advertising and no tracking SDKs. We do not sell your data and we never share it with data brokers.</p>
+    <p>To work, the app sends your coordinates to Transport for London, Open-Meteo and Google Maps at the moment a feature needs them. None of them receive your name or a record of your movements.</p>
   </div>
 
-  <h2>1. App Identity</h2>
+  <h2>1. Who we are</h2>
 
-  <p>
-    London Tube AI is an independent third-party journey planning app for London transport users.
-    The app is not affiliated with, endorsed by, or connected to Transport for London, the Mayor of London, or any transport operator.
-  </p>
+  <p>London Tube AI is published by <strong>TubeAI Labs</strong>, a developer based in the United Kingdom. For the purposes of UK data protection law, TubeAI Labs is the data controller for this app.</p>
 
-  <p>
-    Developer contact:
-    <a href="mailto:londontubenavigator@gmail.com">londontubenavigator@gmail.com</a>
-  </p>
+  <p>Contact: <a href="mailto:londontubenavigator@gmail.com">londontubenavigator@gmail.com</a></p>
 
-  <h2>2. Data We Collect</h2>
+  <p><strong>London Tube AI is an independent app.</strong> It is not affiliated with, endorsed by, or connected to Transport for London, the Mayor of London, the Greater London Authority, or any transport operator.</p>
 
-  <p>
-    The app may collect or process the following types of data, depending on how you use the app and your selected settings.
-  </p>
+  <h2>2. What the app collects, and why</h2>
 
-  <h3>Location Data</h3>
+  <h3>Location</h3>
 
-  <p>
-    The app may collect approximate and precise location data if you grant location permission.
-    Location data is used for app functionality, including:
-  </p>
+  <p>If you grant location permission, the app uses your approximate and precise location to:</p>
 
   <ul>
-    <li>Showing nearby Tube or transport stations</li>
-    <li>Calculating walking distance to nearby stations</li>
-    <li>Providing location-based disruption context</li>
-    <li>Providing weather or local travel context</li>
-    <li>Improving route and nearby station features while the app is in use</li>
+    <li>Find Tube, rail and bus stops near you</li>
+    <li>Show your position on the map</li>
+    <li>Calculate walking distance to nearby stops</li>
+    <li>Track your progress during a live journey and alert you before your stop</li>
+    <li>Show weather at your destination</li>
   </ul>
 
-  <p>
-    Location access is optional. You can deny location permission and still use other app features.
-    You can change location permission at any time in your device settings.
-  </p>
+  <p>Location permission is optional. If you decline it you can still plan journeys by typing station names, check line status, and use every other part of the app.</p>
 
-  <h3>App Activity</h3>
+  <p>During a live journey the app runs a foreground service with location access, so it can keep counting stops while your screen is off or you are using another app. It runs only while a journey is active, it displays a persistent notification for the entire time it is running, and you can stop it at any point. The app does <strong>not</strong> request background location permission and cannot access your location when no journey is running.</p>
 
-  <p>
-    If analytics is enabled, the app may collect app interaction data, such as:
-  </p>
+  <p>We never store your location, because we have nowhere to store it.</p>
+
+  <h3>Analytics, crash reporting and performance monitoring</h3>
+
+  <p>These are <strong>switched off by default</strong>. Nothing is collected unless you turn them on in the app's privacy settings, and you can turn them off again at any time.</p>
+
+  <p>When you enable them, Firebase collects screen views, feature usage, route planning events, crash logs, diagnostics, app performance metrics, and a randomly generated app instance identifier. They do not collect your name, email address, phone number, or contacts.</p>
+
+  <h3>Personalisation</h3>
+
+  <p>The app offers an optional Personalisation setting that learns your regular journeys in order to suggest better routes and surface your usual commute more quickly.</p>
+
+  <p>This runs entirely on your device. Your journey patterns are analysed locally and are never uploaded, transmitted, or shared with us or anyone else. Nothing about your commute leaves your phone.</p>
+
+  <p>Because it involves no sharing, Personalisation is <strong>on by default</strong>. You can turn it off at any time in the app's privacy settings, and clearing app storage deletes everything it has learned.</p>
+
+  <h3>Purchases</h3>
+
+  <p>If you buy premium features, Google Play Billing processes the transaction and tells the app which features to unlock. Your card details are handled entirely by Google and are never seen by us.</p>
+
+  <h3>What is stored on your device</h3>
+
+  <p>Journey search history, saved routes, favourite stations, route preferences, notification settings, cached timetable data and theme choice are stored locally using Android's DataStore and a Room database, inside the app's private storage. None of it is uploaded. Clearing the app's storage or uninstalling deletes it permanently.</p>
+
+  <h2>3. Who receives your data</h2>
+
+  <p>The app sends data to the following services. This is the complete list.</p>
+
+  <div class="wrap">
+  <table>
+    <thead>
+      <tr><th>Service</th><th>What it receives</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://tfl.gov.uk/corporate/privacy-and-cookies/" rel="noopener">Transport for London</a></td>
+        <td>Your coordinates when you search for nearby stops; the stations you are travelling between when you plan a journey</td>
+        <td>To return nearby stops, routes, live arrivals and line status</td>
+      </tr>
+      <tr>
+        <td><a href="https://open-meteo.com/en/features#privacy" rel="noopener">Open-Meteo</a></td>
+        <td>Your coordinates when weather is shown</td>
+        <td>To return the forecast for that location</td>
+      </tr>
+      <tr>
+        <td><a href="https://policies.google.com/privacy" rel="noopener">Google Maps Platform</a></td>
+        <td>Location and device data needed to render the map</td>
+        <td>To display the map and your position on it</td>
+      </tr>
+      <tr>
+        <td><a href="https://policies.google.com/privacy" rel="noopener">Google Play Billing</a></td>
+        <td>Purchase and subscription status</td>
+        <td>To process purchases and unlock premium features</td>
+      </tr>
+      <tr>
+        <td><a href="https://firebase.google.com/support/privacy" rel="noopener">Google Firebase</a></td>
+        <td>Usage events, crash logs, diagnostics, app instance ID — <strong>only if you switch them on</strong></td>
+        <td>To diagnose crashes and understand which features are used</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>These services receive coordinates and technical data only. They do not receive your name, your email address, or any stored history of your movements from us.</p>
+
+  <p><strong>We do not sell your data. We do not share it with advertisers or data brokers. The app contains no advertising SDK and no third-party tracking SDK of any kind.</strong></p>
+
+  <h2>4. Legal basis for using your data</h2>
+
+  <div class="wrap">
+  <table>
+    <thead>
+      <tr><th>Purpose</th><th>Legal basis (UK GDPR Article 6)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Planning journeys and showing transport information</td><td>Performance of a contract — providing the service you asked for</td></tr>
+      <tr><td>Using your location for nearby stops, the map, live journeys and weather</td><td>Consent, given through the Android location permission and withdrawable at any time in your device settings</td></tr>
+      <tr><td>Analytics, crash reporting and performance monitoring</td><td>Consent, given through the in-app privacy settings and withdrawable at any time</td></tr>
+      <tr><td>Personalisation of route suggestions</td><td>Consent, given through the in-app setting and withdrawable at any time</td></tr>
+      <tr><td>Processing purchases</td><td>Performance of a contract, and legal obligation for tax and accounting records</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>5. Your choices</h2>
 
   <ul>
-    <li>Screen views</li>
-    <li>Feature usage</li>
-    <li>Route planning events</li>
-    <li>Premium screen interactions</li>
-    <li>General app usage events</li>
+    <li><strong>Location:</strong> grant, deny or revoke at any time in Android Settings → Apps → London Tube AI → Permissions</li>
+    <li><strong>Notifications:</strong> the same place, or in the app's Settings screen</li>
+    <li><strong>Analytics and crash reporting:</strong> off by default; turn on or off in the app's privacy settings</li>
+    <li><strong>Personalisation:</strong> on by default because nothing is shared; turn it off in the same place</li>
+    <li><strong>Everything stored on your device:</strong> clear the app's storage, or uninstall</li>
   </ul>
 
-  <p>
-    This data is used for analytics and app improvement.
-  </p>
+  <h2>6. Your rights under UK data protection law</h2>
 
-  <h3>App Information and Performance</h3>
+  <p>You have the right to access your personal data, to have it corrected or erased, to restrict or object to how it is used, to data portability, and to withdraw consent at any time.</p>
 
-  <p>
-    If enabled, the app may collect crash logs, diagnostics, and other app performance data.
-    This may include information about app crashes, errors, device state related to crashes, performance issues, and reliability metrics.
-  </p>
+  <p>Because we hold no accounts and operate no servers, we hold almost no personal data about you. Most of what the app knows lives only on your phone, where you control it directly — clearing app storage or uninstalling exercises your right to erasure immediately and completely. For anything held by the third-party services in Section 3, you can exercise your rights with them directly using the links above, or contact us and we will help.</p>
 
-  <p>
-    This data is used to diagnose problems, improve stability, and fix bugs.
-  </p>
+  <p>To make a request, email <a href="mailto:londontubenavigator@gmail.com">londontubenavigator@gmail.com</a> or use the <a href="data-deletion.html">Data Deletion Request</a> page. We will respond within one month.</p>
 
-  <h3>Device or Other IDs</h3>
+  <p>If you are unhappy with how we have handled your data, you can complain to the UK Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">ico.org.uk/make-a-complaint</a> or on 0303 123 1113.</p>
 
-  <p>
-    The app or integrated services may use device or app instance identifiers for analytics, diagnostics, crash reporting, fraud prevention, and app performance measurement.
-  </p>
+  <h2>7. International transfers</h2>
 
-  <h3>Financial Information</h3>
+  <p>Everything stored on your device stays on your device and is never transferred anywhere.</p>
 
-  <p>
-    If you purchase premium features, subscription or purchase history may be processed through Google Play Billing.
-    Payment card details are handled by Google Play and are not directly collected by London Tube AI.
-  </p>
+  <p>Transport for London processes data in the United Kingdom. Google and Open-Meteo may process data outside the UK, including in the United States, under the safeguards set out in their own privacy policies, which are linked in Section 3.</p>
 
-  <h2>3. Data We Share</h2>
-
-  <p>
-    The app may share location data with third-party services only for app functionality, such as retrieving nearby transport information, location-based travel information, or weather/contextual data.
-  </p>
-
-  <p>
-    For example, location coordinates may be sent to transport or weather API services to return nearby station, travel, or weather information.
-  </p>
-
-  <p>
-    We do not sell your data.
-  </p>
-
-  <h2>4. Third-Party Services</h2>
-
-  <p>
-    The app may use third-party services, including but not limited to:
-  </p>
+  <h2>8. How long data is kept</h2>
 
   <ul>
-    <li>Google Play Billing for subscriptions and purchases</li>
-    <li>Firebase Analytics for optional app analytics</li>
-    <li>Firebase Crashlytics for optional crash reporting</li>
-    <li>Firebase Performance Monitoring for optional app performance diagnostics</li>
-    <li>Google Maps or Google Play Services features where used by the app</li>
-    <li>Transport and weather data APIs for app functionality</li>
+    <li><strong>On your device:</strong> until you delete it, clear app storage, or uninstall</li>
+    <li><strong>By us:</strong> we operate no server, so we retain nothing</li>
+    <li><strong>By third parties:</strong> according to their own retention policies, linked in Section 3</li>
+    <li><strong>Purchase records:</strong> retained by Google Play, and by us where required for tax, accounting, refund or fraud-prevention purposes</li>
   </ul>
 
-  <p>
-    These third-party services may process data according to their own privacy policies.
-  </p>
+  <h2>9. Security</h2>
 
-  <h2>5. Legal Basis and User Choice</h2>
-
-  <p>
-    Where required, the app asks for your consent before enabling optional analytics, crash reporting, or performance data collection.
-  </p>
-
-  <p>
-    You can change privacy choices in the app settings where available.
-    You can also control permissions such as location and notifications from your device settings.
-  </p>
-
-  <h2>6. Location Permission</h2>
-
-  <p>
-    Location permission is optional.
-    The app requests location access only to provide location-based app functionality.
-    If you do not grant location permission, nearby station and location-based features may not work, but other app features remain available.
-  </p>
-
-  <h2>7. Notification Permission</h2>
-
-  <p>
-    If you enable notifications, the app may send alerts about disruption updates, commute information, or travel tips.
-    Notification permission can be changed at any time in your device settings.
-  </p>
-
-  <h2>8. Data Retention</h2>
-
-  <p>
-    Local app data, such as settings, favourites, recent stations, cached journey data, and preferences, may remain on your device until you delete it, clear app storage, or uninstall the app.
-  </p>
-
-  <p>
-    Analytics, crash, diagnostic, and performance data may be retained by third-party service providers according to their retention policies.
-  </p>
-
-  <p>
-    Purchase records may be retained by Google Play, and may also be retained where required for legal, tax, fraud prevention, accounting, or refund purposes.
-  </p>
-
-  <h2>9. Data Deletion</h2>
-
-  <p>
-    You can request deletion of data associated with your app use by visiting:
-    <a href="data-deletion.html">Data Deletion Request</a>.
-  </p>
-
-  <p>
-    You can also delete local app data by clearing the app's storage from your device settings or uninstalling the app.
-  </p>
+  <ul>
+    <li>All data leaving the app is encrypted in transit using HTTPS/TLS</li>
+    <li>Unencrypted HTTP traffic is blocked at the network configuration level and cannot occur</li>
+    <li>Data stored on your device sits in Android's private application sandbox, inaccessible to other apps</li>
+    <li>Google Consent Mode v2 defaults to denied for every consent type until you choose otherwise</li>
+    <li>There is no central database of user journeys to be breached, because we do not have one</li>
+  </ul>
 
   <h2>10. Children</h2>
 
-  <p>
-    London Tube AI is not directed at children.
-    The app is intended for a general audience and for users who can independently use journey planning and transport information services.
-  </p>
+  <p>London Tube AI is intended for users aged 13 and over. It is not directed at children under 13 and we do not knowingly collect personal data from them. If you believe a child under 13 has provided us with personal data, contact us and we will delete it.</p>
 
-  <h2>11. Security</h2>
+  <h2>11. Changes to this policy</h2>
 
-  <p>
-    Data transmitted by the app is encrypted in transit using secure connections where supported by the relevant services.
-    We use reasonable technical and organisational measures to protect app-related data.
-  </p>
+  <p>We may update this policy. Material changes will be posted here with a revised "Last updated" date, and where a change affects how your data is used we will tell you in the app before it takes effect. Where a change requires your consent, we will ask for it rather than assume it.</p>
 
-  <h2>12. Changes to This Policy</h2>
+  <h2>12. Contact</h2>
 
-  <p>
-    We may update this Privacy Policy from time to time.
-    Updates will be posted on this page with a revised “Last updated” date.
-  </p>
+  <p>Questions about this policy: <a href="mailto:londontubenavigator@gmail.com">londontubenavigator@gmail.com</a></p>
 
-  <h2>13. Contact</h2>
+  <footer>
+    <p>Powered by TfL Open Data</p>
+    <p>Contains OS data © Crown copyright and database rights 2016</p>
+    <p>Geomni UK Map data © and database rights 2019</p>
+    <p style="margin-top:1rem;">London Tube AI is an independent app. It is not affiliated with, endorsed by, or connected to Transport for London.</p>
+    <p style="margin-top:1rem;"><a href="index.html">Back to home</a></p>
+  </footer>
 
-  <p>
-    If you have questions about this Privacy Policy, contact us at:
-    <a href="mailto:londontubenavigator@gmail.com">londontubenavigator@gmail.com</a>
-  </p>
-
-  <p>
-    <a href="index.html">Back to home</a>
-  </p>
 </body>
 </html>
