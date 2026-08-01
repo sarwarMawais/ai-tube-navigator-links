@@ -6,39 +6,6 @@
   <title>Privacy Policy — London Tube AI</title>
   <meta name="description" content="How London Tube AI handles your data. No accounts, no servers, no advertising, analytics off by default." />
 
-  <!--
-    ================================================================
-    v2 — corrected 1 August 2026
-    ================================================================
-    CHANGED FROM v1:
-      • OpenWeatherMap → Open-Meteo (v1 named the wrong provider)
-      • Age position changed to 13+ to match the in-app policy
-      • "Analytics off by default" upgraded from claim to verified
-        (manifest flags false + Consent Mode v2 all-denied)
-      • Added the Personalisation toggle, which was undisclosed
-      • Added Consent Mode v2 and cleartext-blocking to Security
-
-    ----------------------------------------------------------------
-    VERIFIED AGAINST SOURCE — 1 August 2026
-    ----------------------------------------------------------------
-    Weather provider .... Open-Meteo.
-                          AppModule.kt:105 baseUrl("https://api.open-meteo.com/v1/")
-                          network_security_config.xml:13 api.open-meteo.com
-
-    Coordinates ......... NOT rounded. HomeViewModel.fetchWeather()
-                          passes raw Doubles straight through. This
-                          file says "your coordinates" and makes no
-                          coarseness claim, so it is accurate.
-
-    Personalisation ..... On-device only, and ON BY DEFAULT.
-                          AppPreferences.kt:122  ?: true
-                          (analytics :120 and crash :121 are ?: false)
-
-    Consent Mode v2 ..... AnalyticsTracker.kt:82 AD_PERSONALIZATION
-                          defaults to DENIED.
-    ================================================================
-  -->
-
   <style>
     :root {
       --ink:        #16181D;
