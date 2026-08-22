@@ -98,11 +98,11 @@
   <h1>Privacy Policy</h1>
   <p class="meta">
     London Tube AI (also published as AI Tube Navigator)<br />
-    Last updated: 1 August 2026
+    Last updated: 22 August 2026
   </p>
 
   <div class="callout">
-    <p><strong>The short version.</strong> London Tube AI has no accounts and no sign-up. We operate no server that receives or stores your data. Your journeys, favourites and history stay on your phone.</p>
+    <p><strong>The short version.</strong> London Tube AI is free, has no accounts and no sign-up, and sells nothing. We operate no server that receives or stores your data. Your journeys, favourites and history stay on your phone.</p>
     <p>Analytics and crash reporting are switched <strong>off by default</strong> — nothing is collected unless you turn it on. The app contains no advertising and no tracking SDKs. We do not sell your data and we never share it with data brokers.</p>
     <p>To work, the app sends your coordinates to Transport for London, Open-Meteo and Google Maps at the moment a feature needs them. None of them receive your name or a record of your movements.</p>
   </div>
@@ -151,7 +151,7 @@
 
   <h3>Purchases</h3>
 
-  <p>If you buy premium features, Google Play Billing processes the transaction and tells the app which features to unlock. Your card details are handled entirely by Google and are never seen by us.</p>
+  <p>If you buy premium features, Google Play Billing processes the transaction and tells the app which features to unlock. We do not receive or store your payment card details or other payment information. Google Play handles the payment transaction and associated purchase records under its own terms and privacy policy.</p>
 
   <h3>What is stored on your device</h3>
 
@@ -159,7 +159,7 @@
 
   <h2>3. Who receives your data</h2>
 
-  <p>The app sends data to the following services. This is the complete list.</p>
+  <p>These are the services the app sends data to. Some of them bring additional Google components with them, which are listed underneath.</p>
 
   <div class="wrap">
   <table>
@@ -183,6 +183,11 @@
         <td>To display the map and your position on it</td>
       </tr>
       <tr>
+        <td><a href="https://policies.google.com/privacy" rel="noopener">Google Play In-App Review</a></td>
+        <td>Whether your Play account is eligible to leave a review</td>
+        <td>To show Google's own rating prompt inside the app</td>
+      </tr>
+      <tr>
         <td><a href="https://policies.google.com/privacy" rel="noopener">Google Play Billing</a></td>
         <td>Purchase and subscription status</td>
         <td>To process purchases and unlock premium features</td>
@@ -195,6 +200,28 @@
     </tbody>
   </table>
   </div>
+
+  <h3>Components that ship as part of Firebase</h3>
+
+  <p>Firebase Installations, Firebase Sessions, Firebase Remote Config and Google's data-transport service are components that ship as part of Firebase Analytics, Crashlytics and Performance Monitoring. We name them because each has its own network endpoint, even though none is a separate product decision on our part.</p>
+
+  <div class="wrap">
+  <table>
+    <thead>
+      <tr><th>Component</th><th>What it does</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Firebase Installations</td><td>Creates the randomly generated app instance identifier that Crashlytics and Performance Monitoring rely on</td></tr>
+      <tr><td>Firebase Sessions</td><td>Groups activity into sessions for crash and performance reporting</td></tr>
+      <tr><td>Firebase Remote Config</td><td>Arrives as a dependency of Performance Monitoring. The app itself never calls it</td></tr>
+      <tr><td>Google data transport</td><td>The upload channel that Crashlytics and Analytics payloads travel over</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Android Backup</h3>
+
+  <p>Android's backup service can copy app data to your Google account. We exclude everything that describes your travel or your settings — your journey history, your home and work stations, your privacy choices and any journey in progress. What remains eligible for backup is non-personal cached timetable and line-status data.</p>
 
   <p>These services receive coordinates and technical data only. They do not receive your name, your email address, or any stored history of your movements from us.</p>
 
@@ -239,7 +266,7 @@
 
   <h2>7. International transfers</h2>
 
-  <p>Everything stored on your device stays on your device and is never transferred anywhere.</p>
+  <p>Everything stored on your device stays on your device and is never transferred anywhere. Analytics events, if you enable them, are sent as they happen and are described in the analytics section above.</p>
 
   <p>Transport for London processes data in the United Kingdom. Google and Open-Meteo may process data outside the UK, including in the United States, under the safeguards set out in their own privacy policies, which are linked in Section 3.</p>
 
@@ -249,7 +276,7 @@
     <li><strong>On your device:</strong> until you delete it, clear app storage, or uninstall</li>
     <li><strong>By us:</strong> we operate no server, so we retain nothing</li>
     <li><strong>By third parties:</strong> according to their own retention policies, linked in Section 3</li>
-    <li><strong>Purchase records:</strong> retained by Google Play, and by us where required for tax, accounting, refund or fraud-prevention purposes</li>
+    <li><strong>Purchase records:</strong> retained by Google Play according to its own retention policies</li>
   </ul>
 
   <h2>9. Security</h2>
