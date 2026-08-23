@@ -98,7 +98,7 @@
   <h1>Privacy Policy</h1>
   <p class="meta">
     London Tube AI (also published as AI Tube Navigator)<br />
-    Last updated: 22 August 2026
+    Last updated: 23 August 2026
   </p>
 
   <div class="callout">
@@ -183,6 +183,11 @@
         <td>To display the map and your position on it</td>
       </tr>
       <tr>
+        <td><a href="https://www.gov.uk/government/organisations/department-for-transport" rel="noopener">Bus Open Data Service</a> (Department for Transport)</td>
+        <td>A rounded box covering the area of map currently on screen, snapped to roughly a 700&nbsp;m grid &mdash; <strong>not your position</strong>, and no device or account identifier</td>
+        <td>To return live bus positions while the bus layer is switched on</td>
+      </tr>
+      <tr>
         <td><a href="https://policies.google.com/privacy" rel="noopener">Google Play In-App Review</a></td>
         <td>Whether your Play account is eligible to leave a review</td>
         <td>To show Google's own rating prompt inside the app</td>
@@ -195,6 +200,8 @@
     </tbody>
   </table>
   </div>
+
+  <p><strong>A note on the bus layer.</strong> Live bus positions come from the Department for Transport&rsquo;s Bus Open Data Service. To ask for them, the app sends the area of map you are looking at &mdash; not where you are. That area is rounded to a grid of roughly 700&nbsp;metres before it is sent, so it does not describe your position even approximately, and it is sent only while the bus layer is on and the map is visible. If you never turn the bus layer on, nothing is sent to this service at all.</p>
 
   <h3>Components that ship as part of Firebase</h3>
 
@@ -296,6 +303,7 @@
 
   <footer>
     <p>Powered by TfL Open Data</p>
+    <p>Contains public sector information licensed under the Open Government Licence v3.0</p>
     <p>Contains OS data © Crown copyright and database rights 2016</p>
     <p>Geomni UK Map data © and database rights 2019</p>
     <p style="margin-top:1rem;">London Tube AI is an independent app. It is not affiliated with, endorsed by, or connected to Transport for London.</p>
